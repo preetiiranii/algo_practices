@@ -1,0 +1,63 @@
+56. Merge Intervals
+Medium
+5269
+323
+Add to List
+Share
+
+Given a collection of intervals, merge all overlapping intervals.
+
+Example 1:
+
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
+
+Example 2:
+
+Input: intervals = [[1,4],[4,5]]
+Output: [[1,5]]
+Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+
+NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
+
+ 
+
+Constraints:
+
+    intervals[i][0] <= intervals[i][1]
+
+
+==========================================================================
+
+
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        if not intervals:
+            return
+        
+        intervals.sort(key = lambda x: x[0])
+        
+        previtem = intervals[0]
+        result = []
+        
+        for pair in intervals:
+            curitem = pair
+            
+            if(curitem[0] <= previtem[1]):
+                if(curitem[1] > previtem[1]):
+                    previtem[1] = curitem[1]
+                
+            else:
+                result.append(previtem)
+                previtem = curitem
+        
+        result.append(previtem)
+        
+        return result  
+            
+        
